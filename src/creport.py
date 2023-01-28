@@ -2,7 +2,7 @@ import fitz
 import subprocess
 import re
 
-from src.helpers import span_css
+from src.helpers import span_css, handle_indent
 import pdb
 
 class CReport:
@@ -48,7 +48,7 @@ class CReport:
         4. Add in the styling for each span
         
         """
-        elements = []
+        elements = ["<!DOCTYPE html><html><body>"]
 
         # Generate the "front matter" of the html
 
@@ -56,7 +56,7 @@ class CReport:
         for page in self.doc:
             blocks = page.get_text("dict", flags=fitz.TEXT_DEHYPHENATE)["blocks"]
             for block in blocks:
-                block_html = ["<!DOCTYPE html><html><body><div>"]
+                block_html = ["<div>"]
                 lines = block["lines"]
                 first_span = block["lines"][0]["spans"][0]
                 
@@ -68,14 +68,28 @@ class CReport:
                 if len(lines) == 1 and len(lines[0]["spans"]) == 1 and re.match(r"[\d|\s]+",first_span["text"]):
                     continue
 
-                # Loop through lines
-                for line in lines:
+                # Check if heading
+                text = "".join([span["text"] for line in lines for span in line["spans"]])
+                if text.isupper():
+                    text=f"<h3>{text}</h3></div>"
+                    block_html.append(text)
+                    elements.append("".join(block_html))
+                    continue
+
+                # Otherwise, loop through lines
+                for l_idx, line in enumerate(lines):
                     spans = line["spans"]
 
-                    for span in spans:
-                        style = span_css(span)
 
-                        block_html.append(f"<span style='{style}'>{span['text']}</span>")
+                    for s_idx, span in enumerate(spans):
+                        text = span["text"]
+                        if s_idx == 0:
+                            # pdb.set_trace()
+
+                            text = f"{handle_indent(block, l_idx, line['bbox'][0], span)}"
+
+                        style = span_css(span)
+                        block_html.append(f"<span style='{style}'>{text}</span>")
                     
                 block_html.append("</div>")
                 elements.append("".join(block_html))

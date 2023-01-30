@@ -46,7 +46,7 @@ def span_css(span):
     if flags & 2 ** 0:
         css.append("super")
 
-    css.append(f"{scale_size(span['size'])}px")
+    css.append(f"{scale_size(span['size'],scale_factor=1)}px")
 
     font = span["font"]
     if font.startswith("NewCenturySchlbk"):

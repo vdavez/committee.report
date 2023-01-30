@@ -4,8 +4,6 @@ import tempfile
 import subprocess
 import os
 
-import pdb
-
 @click.command()
 @click.argument("infile", type=click.File("rb"))
 @click.argument("outfile", type=click.File("w"))

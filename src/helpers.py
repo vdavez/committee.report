@@ -1,7 +1,6 @@
 def handle_indent(block, l_idx, l_bbox_x, span, char=5, min_x = 147):
     """Check to see if a span's bbox is greater than the block's bbox. If it is, add an indent"""
     
-    # TODO:
     b0 = block["bbox"][0]
     b1 = span["origin"][0]
     

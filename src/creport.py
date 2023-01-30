@@ -2,10 +2,8 @@ import fitz
 import subprocess
 import re
 import base64
-import io
 
 from src.helpers import span_css, handle_indent
-import pdb
 
 class CReport:
     """A Congressional Report class"""
@@ -113,8 +111,6 @@ class CReport:
                     for s_idx, span in enumerate(spans):
                         text = span["text"]
                         if s_idx == 0:
-                            # pdb.set_trace()
-
                             text = f"{handle_indent(block, l_idx, line['bbox'][0], span)}"
 
                         style = span_css(span)
@@ -125,7 +121,3 @@ class CReport:
         elements.append("</body></html>")
         self.html = ''.join(elements)
         return True
-
-    def convert_to_epub(self):
-        """Convert the html into an ePub"""
-        pass

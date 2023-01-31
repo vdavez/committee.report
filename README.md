@@ -2,6 +2,20 @@
 
 The top-line purpose of this project is to convert Congressional Reports into an ePub format.
 
+## Usage
+
+```{code}
+docker build -t crpt2epub . # Build the Docker image
+
+docker run -v ${PWD}/data:/tmp/data --rm -ti crpt2epub python main.py /tmp/data/CRPT-117hrpt507.pdf /tmp/data/test.epub
+```
+
+## Gotchas (Until I figure these out)
+
+1. Make sure you export poetry dependencies into a "requirements.txt" using the following script: `poetry export -f requirements.txt --without-hashes --output requirements.txt`
+
+---
+
 ## Approach
 
 Based on my understanding, there are six types of reports published by Congress, each with a slightly different structure:

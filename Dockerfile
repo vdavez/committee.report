@@ -1,0 +1,18 @@
+FROM python:3.11-slim-bullseye AS compile-image
+RUN apt-get update && apt-get install -y --no-install-recommends gcc
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+FROM python:3.11-slim AS build-image
+RUN apt-get update && apt-get install -y --no-install-recommends gcc
+RUN apt-get install -y mupdf mupdf-tools pandoc
+COPY --from=compile-image /opt/venv /opt/venv
+COPY src/ src/
+COPY main.py .
+
+# Make sure we use the virtualenv:
+ENV PATH="/opt/venv/bin:$PATH"
+CMD ['python', 'main.py']

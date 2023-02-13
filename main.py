@@ -23,9 +23,7 @@ def cli():
 @click.command()
 @click.argument("day", default=today)
 def getfromday(day):
-    govinfo_url = (
-        URL
-    ) = f"https://api.govinfo.gov/published/{day}?pageSize=100&collection=CRPT&offsetMark=%2A&api_key={DATA_DOT_GOV_API_KEY}"
+    govinfo_url = f"https://api.govinfo.gov/published/{day}?pageSize=100&collection=CRPT&offsetMark=%2A&api_key={DATA_DOT_GOV_API_KEY}"
     response = requests.get(govinfo_url).json()
     if response["count"] == 0:
         return 0

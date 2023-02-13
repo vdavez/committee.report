@@ -5,6 +5,7 @@ import base64
 
 from src.helpers import span_css, handle_indent
 
+
 class CReport:
     """A Congressional Report class"""
 
@@ -35,39 +36,39 @@ class CReport:
 
     def replace_tables(self, page, b_idx, blocks):
         """We know that the ePub chokes on tables, so let's make them look pretty as a JPEG"""
-        
-        min_x = blocks[b_idx+1]["bbox"][0]
-        max_x = blocks[b_idx+1]["bbox"][2]
+
+        min_x = blocks[b_idx + 1]["bbox"][0]
+        max_x = blocks[b_idx + 1]["bbox"][2]
         min_y = blocks[b_idx]["bbox"][1]
-        max_y = blocks[b_idx+1]["bbox"][3]
+        max_y = blocks[b_idx + 1]["bbox"][3]
 
         clip = (min_x, min_y, max_x, max_y)
         zoom = 600 / (max_x - min_x)
         mat = fitz.Matrix(zoom, zoom)
-        
+
         pix = page.get_pixmap(matrix=mat, clip=clip)
         stream = pix.pil_tobytes(format="JPEG", quality=100)
-        img_data_url = 'data:image/jpeg;base64,' + base64.b64encode(stream).decode()
+        img_data_url = "data:image/jpeg;base64," + base64.b64encode(stream).decode()
         return f"<img src='{img_data_url}' width=600 style='padding: 1em 1em'/>"
-
-
 
     def generate_html(self):
         """The powerhouse of the CReport. Generate the html for a CReport
-        
+
         Here's how this works. Each page has a bunch of blocks... Then:
 
-        1. Loop through the blocks (think of them as divs). 
+        1. Loop through the blocks (think of them as divs).
         2. Ignore divs that are hidden (i.e., have a white text color).
         3. Handle indentation and linebreaks for the first span in each line within the div
         4. Add in the styling for each span
-        
+
         """
 
         vote = 0
 
         # Generate the "front matter" of the html
-        elements = ["<!DOCTYPE html><html><head><style>div{line-height:normal}</style><body>"]
+        elements = [
+            "<!DOCTYPE html><html><head><style>div{line-height:normal}</style><body>"
+        ]
 
         # Iterate through the pages
         for page in self.doc:
@@ -75,21 +76,27 @@ class CReport:
             for b_idx, block in enumerate(blocks):
                 lines = block["lines"]
                 first_span = block["lines"][0]["spans"][0]
-                
+
                 # Check if hidden text, and greedily ignore the whole div
                 if first_span["color"] == 16777215:
                     continue
 
                 # Check if page number
-                if len(lines) == 1 and len(lines[0]["spans"]) == 1 and re.match(r"[\d|\s]+",first_span["text"]):
+                if (
+                    len(lines) == 1
+                    and len(lines[0]["spans"]) == 1
+                    and re.match(r"[\d|\s]+", first_span["text"])
+                ):
                     continue
 
                 block_html = ["<div>"]
 
                 # Check if heading
-                text = "".join([span["text"] for line in lines for span in line["spans"]])
+                text = "".join(
+                    [span["text"] for line in lines for span in line["spans"]]
+                )
                 if text.isupper():
-                    text=f"<h3>{text}</h3></div>"
+                    text = f"<h3>{text}</h3></div>"
                     block_html.append(text)
                     elements.append("".join(block_html))
                     continue
@@ -111,13 +118,15 @@ class CReport:
                     for s_idx, span in enumerate(spans):
                         text = span["text"]
                         if s_idx == 0:
-                            text = f"{handle_indent(block, l_idx, line['bbox'][0], span)}"
+                            text = (
+                                f"{handle_indent(block, l_idx, line['bbox'][0], span)}"
+                            )
 
                         style = span_css(span)
                         block_html.append(f"<span style='{style}'>{text}</span>")
-                    
+
                 block_html.append("</div>")
                 elements.append("".join(block_html))
         elements.append("</body></html>")
-        self.html = ''.join(elements)
+        self.html = "".join(elements)
         return True

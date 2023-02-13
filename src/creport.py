@@ -28,7 +28,7 @@ class CReport:
                 outfile,
                 "-O",
                 "width=600",
-                self.fname.name,
+                self.fname,
                 "1",
             ]
         )

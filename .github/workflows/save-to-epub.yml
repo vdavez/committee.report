@@ -1,6 +1,6 @@
 name: push-epubs-to-S3
 on: 
-  schedule
+  schedule:
   - cron:  '5 0 * * *'
 jobs:
   get_reports:

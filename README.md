@@ -2,6 +2,10 @@
 
 The top-line purpose of this project is to convert Congressional Committee Reports into an ePub format.
 
+You can now download new committee reports predicting a URL! For example:
+
+https://crpts.s3.amazonaws.com/epubs/CRPT-118hrpt1.epub
+
 ## How it works
 
 The project uses a handful of different tools to automate the conversion of the reports.

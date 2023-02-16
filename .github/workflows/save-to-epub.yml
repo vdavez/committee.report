@@ -6,6 +6,8 @@ jobs:
   get_reports:
     runs-on: ubuntu:latest
     steps:
+    - name: Checkout 
+      uses: actions/checkout@v2
     - name: Get today's reports
       uses: addnab/docker-run-action@v3
       with:

@@ -8,6 +8,9 @@ jobs:
     steps:
     - name: Checkout 
       uses: actions/checkout@v2
+    - name: Get current date
+      id: date
+      run: echo "builddate=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
     - name: Get today's reports
       uses: addnab/docker-run-action@v3
       with:
@@ -17,4 +20,4 @@ jobs:
             -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
             -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          python main.py getfromday
+          python main.py getfromday ${{ steps.date.outputs.builddate }}

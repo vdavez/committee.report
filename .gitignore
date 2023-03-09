@@ -3,3 +3,7 @@ notes.md
 .pytest_cache/**
 .DS_Store
 deploy_ecr.sh
+
+terraform.tfstate
+terraform.tfstate.backup
+.terraform

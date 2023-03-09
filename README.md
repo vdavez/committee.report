@@ -15,7 +15,8 @@ The project uses a handful of different tools to automate the conversion of the 
 - Uses [Pandoc](https://pandoc.org/MANUAL.html) to convert the generated HTML into an ePub.
 - Uses [Amazon S3](https://docs.aws.amazon.com/s3/index.html) and [Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html) to store the ePub.
 - Uses [Docker](docker.com) to create a container for the code and we deploy the container image to [Amazon ECR](https://docs.aws.amazon.com/ecr/index.html) for hosting.
-- Uses [Github Actions](https://docs.github.com/en/actions) to schedule a daily job that looks for reports from the GovInfo API and triggers a run of the Docker image.
+- Uses [Amazon EventBridge](https://docs.aws.amazon.com/eventbridge/index.html) to create a cron job that, every day, calls [AWS ECS](https://docs.aws.amazon.com/ecs/) to run a task.
+- We provision the AWS infrastructure using [Terraform](https://developer.hashicorp.com/terraform).
 
 ## Using it locally
 

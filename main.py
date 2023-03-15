@@ -12,8 +12,7 @@ logging.basicConfig(stream=sys.stdout)
 s3 = boto3.client("s3")
 DATA_DOT_GOV_API_KEY = os.environ.get("DATA_DOT_GOV_API_KEY")
 
-today = datetime.date.today().isoformat()
-
+yesterday = (datetime.date.today() - datetime.timedelta(days=1)).isoformat()
 
 @click.group()
 def cli():

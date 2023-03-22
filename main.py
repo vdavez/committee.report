@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import click
 from src.creport import CReport
 import tempfile
@@ -8,7 +9,8 @@ import requests
 import datetime
 import sys, logging
 
-logging.basicConfig(stream=sys.stdout)
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+logging.info("Starting...")
 s3 = boto3.client("s3")
 DATA_DOT_GOV_API_KEY = os.environ.get("DATA_DOT_GOV_API_KEY")
 

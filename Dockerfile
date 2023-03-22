@@ -21,4 +21,5 @@ COPY main.py .
 
 # Make sure we use the virtualenv:
 ENV PATH="/opt/venv/bin:$PATH"
-CMD ["python", "main.py"]
+ENV PYTHONUNBUFFERED=1
+# CMD ["python", "main.py"]

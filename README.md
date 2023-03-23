@@ -1,10 +1,10 @@
-# CRPT2EPUB
+# committee.report
 
 The top-line purpose of this project is to convert Congressional Committee Reports into an ePub format.
 
 You can now download new committee reports predicting a URL! For example:
 
-https://crpts.s3.amazonaws.com/epubs/CRPT-118hrpt1.epub
+https://committee.report/118hrpt1
 
 ## How it works
 
@@ -47,16 +47,16 @@ docker run crpt2epub python main.py getfromday <date>
 
 Based on my understanding, there are six types of reports published by Congress, each with a slightly different structure:
 
-1. House Reports on Legislation 
+1. House Reports on Legislation
 2. Senate Reports on Legislation
-3. House Reports on Other Matters (including investigations) 
+3. House Reports on Other Matters (including investigations)
 4. Senate Reports on Other Matters (including investigations)
 5. Senate Executive Reports
 6. Conference Reports
 
 Currently, these reports are available on Congress.gov and Govinfo.gov in both PDF and TXT formats.
 
-My goal for this project was to handle automated conversion of reports into an ePub format given a report number (e.g., H. Rept. 117-664). 
+My goal for this project was to handle automated conversion of reports into an ePub format given a report number (e.g., H. Rept. 117-664).
 
 ## Known challenges / mitigation strategies
 
@@ -65,5 +65,5 @@ My goal for this project was to handle automated conversion of reports into an e
 
 ## Future improvements
 
-1. Links for TOC/footnotes. Although it is *theoretically* possible to include hyperlinks in an ePub to headers/footnotes, the current official documents don't include any hyperlinks. 
+1. Links for TOC/footnotes. Although it is *theoretically* possible to include hyperlinks in an ePub to headers/footnotes, the current official documents don't include any hyperlinks.
 2. Joint Publications. On the GPO site, there appears to a class of documents called "Featured Joint Publications." There haven't been any since the 110th Congress, so I just ignored them.

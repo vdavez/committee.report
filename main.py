@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import click
+import fitz
 from src.creport import CReport
 import tempfile
 import subprocess
@@ -68,9 +69,13 @@ def convert(report_number):
     )
     logging.info(f"Downloading the PDF from {govinfo_link}")
     response = requests.get(govinfo_link)
-    with open(local_infile_path, "wb") as f:
-        f.write(response.content)
-        doc = CReport(local_infile_path)
+    try:
+        with open(local_infile_path, "wb") as f:
+            f.write(response.content)
+            doc = CReport(local_infile_path)
+    except fitz.fitz.FileDataError:
+        logging.error(f"Something's wrong with the PDF from {govinfo_link}")
+        return False
 
     fp = tempfile.NamedTemporaryFile(mode="w", delete=False)
     fp.write(doc.html)

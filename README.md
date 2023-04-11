@@ -42,7 +42,6 @@ docker run crpt2epub python main.py getfromday <date>
 
 1. If you're planning on doing local development and/or change the python dependencies, you'll need to have [poetry](https://python-poetry.org/) installed. If you do make changes, you need to export poetry dependencies into a "requirements.txt" using the following script: `poetry export -f requirements.txt --without-hashes --output requirements.txt`.
 
-
 ## Background
 
 Based on my understanding, there are six types of reports published by Congress, each with a slightly different structure:

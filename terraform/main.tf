@@ -29,9 +29,9 @@ resource "aws_ecs_task_definition" "definition" {
   container_definitions = <<DEFINITION
 [
   {
-    "image": "public.ecr.aws/i4f5a0p9/crpts:latest",
+    "image": "421725848418.dkr.ecr.us-east-1.amazonaws.com/crpts",
     "name": "converter",
-    "command": ["python,main.py,getfromday"],
+    "command": ["python","main.py","getfromday"],
     "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {

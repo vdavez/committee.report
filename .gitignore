@@ -1,6 +1,6 @@
 notes.md
 **/__pycache__/**
-.pytest_cache/**
+.pytest_cache
 .DS_Store
 deploy_ecr.sh
 
@@ -8,3 +8,8 @@ terraform.tfstate
 terraform.tfstate.backup
 .terraform
 .env
+
+.parcel-cache
+node_modules
+tmp
+dist

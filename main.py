@@ -45,7 +45,7 @@ cli.add_command(getfromday)
 cli.add_command(report)
 
 
-def convert(report_number):
+def convert(report_number, download_url=None):
     """Converts a PDF into an ePub
 
     Args:
@@ -63,10 +63,13 @@ def convert(report_number):
     local_outfile_path = f"{report_number}.epub"
     s3_outfile_path = f"epubs/{report_number}.epub"
 
-    # Download and access the file from S3
-    govinfo_link = (
-        f"https://www.govinfo.gov/content/pkg/{report_number}/pdf/{report_number}.pdf"
-    )
+    # Download and access the file from the provided URL or from GPO
+    if not download_url:
+        download_url = (
+            f"https://www.govinfo.gov/content/pkg/{report_number}/pdf/{report_number}.pdf"
+        )
+
+    govinfo_link = download_url
     logging.info(f"Downloading the PDF from {govinfo_link}")
     response = requests.get(govinfo_link)
     try:

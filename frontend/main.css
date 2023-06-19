@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+th {
+    @apply text-left
+}
+
+a {
+    @apply underline;
+}

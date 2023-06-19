@@ -2,13 +2,13 @@
 
 The top-line purpose of this project is to convert Congressional Committee Reports into an ePub format.
 
-You can now download new committee reports predicting a URL! For example:
-
-https://committee.report/118hrpt1
+https://committee.report/
 
 ## How it works
 
 The project uses a handful of different tools to automate the conversion of the reports.
+
+### Backend
 
 - Uses the [GovInfo API](https://api.govinfo.gov/docs/) and GovInfo predictable URL structure to find the relevant PDFs for a given committee report.
 - Uses [PyMuPDF](https://pymupdf.readthedocs.io/en/latest/) (and the underlying tool MuPDF) to extract the text from the PDF and to create a screenshot of the front page. This is where most of the work in conversion exists and it mainly works by creating a light HTML version of the document.
@@ -17,6 +17,12 @@ The project uses a handful of different tools to automate the conversion of the 
 - Uses [Docker](docker.com) to create a container for the code and we deploy the container image to [Amazon ECR](https://docs.aws.amazon.com/ecr/index.html) for hosting.
 - Uses [Amazon EventBridge](https://docs.aws.amazon.com/eventbridge/index.html) to create a cron job that, every day, calls [AWS ECS](https://docs.aws.amazon.com/ecs/) to run a task.
 - We provision the AWS infrastructure using [Terraform](https://developer.hashicorp.com/terraform).
+
+## Frontend
+
+For the static website in front, we use [Parcel](https://parceljs.org), [TailwindCSS](https://tailwindcss.com), and [S3](https://docs.aws.amazon.com/s3/index.html).
+
+To build and deploy, I am using [just](https://github.com/casey/just) to run `serve` and `deploy` commands. I also have `update` in there to handle the inevitable need to manually generate the ePub data.
 
 ## Using it locally
 

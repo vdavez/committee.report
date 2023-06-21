@@ -20,7 +20,7 @@ The project uses a handful of different tools to automate the conversion of the 
 
 ## Frontend
 
-For the static website in front, we use [Parcel](https://parceljs.org), [TailwindCSS](https://tailwindcss.com), and [S3](https://docs.aws.amazon.com/s3/index.html).
+For the static website in front, we use [Parcel](https://parceljs.org), [AlpineJS](alpinejs.dev/), [TailwindCSS](https://tailwindcss.com), and [S3](https://docs.aws.amazon.com/s3/index.html).
 
 To build and deploy, I am using [just](https://github.com/casey/just) to run `serve` and `deploy` commands. I also have `update` in there to handle the inevitable need to manually generate the ePub data.
 

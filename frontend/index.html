@@ -14,7 +14,7 @@
             <div class="pr-2"><a href="about.html">about</a></div>
         </div>
     </header>
-    <main class="bg-slate-50 w-full h-screen">
+    <main class="bg-slate-50 w-full min-h-screen">
         <div x-data="{search: '', chamber: ''}" class="container mx-auto max-w-6xl pt-4 px-4">
             <h1 class="text-blue-800 text-2xl font-bold">Congressional Committee Reports in ePub</h1>
             <p class="pt-2">Congressional Reports are the product of congressional committees on proposed legislation and issues under investigation. We believe that these reports should be available in a readable format on eReaders and have converted them to ePub for your reading pleasure.</p>
@@ -28,7 +28,7 @@
                 </div>
                 <div class="flex flex-col">
                     <label class="text-sm text-blue-800 uppercase">Find a report</label>
-                    <input x-model="search" class="px-2 rounded-lg shadow-lg h-10 w-96 border">
+                    <input x-model="search" placeholder="Search by report number, title, or committee name" class="text-sm px-2 rounded-lg shadow-lg h-10 w-96 border">
                 </div>
             </div>
             <div class="text-sm" id="area" x-data="{}">
@@ -40,10 +40,10 @@
                     <p>Download</p>
                 </div>
                     <template x-for="item in $store.reports.data" :key="item.report_id">
-                        <div x-show="$store.reports.showElement(item, chamber, search)" class="w-full items-start max-h-12 gap-x-2 grid grid-cols-[1fr,3fr,1fr,1fr,1fr]">
+                        <div x-show="$store.reports.showElement(item, chamber, search)" class="w-full items-start max-h-24 py-1 gap-x-2 grid grid-cols-[1fr,3fr,1fr,1fr,1fr]">
                             <p x-text="item.report_id"></p>
-                            <p class="h-8 truncate" x-text="item.report_title"></p>
-                            <p class="h-8 truncate" x-text="item.report_committee"></p>
+                            <p class="line-clamp-4" x-text="item.report_title"></p>
+                            <p class="line-clamp-3" x-text="item.report_committee"></p>
                             <p x-text="item.report_publish_date" class="truncate"></p>
                             <p class="flex items-center">
                                 <a :href="item.report_pdf_url"><img class="h-6" src="assets/pdficon.svg" alt="PDF icon"></a>

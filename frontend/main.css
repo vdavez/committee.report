@@ -6,6 +6,11 @@ th {
     @apply text-left
 }
 
+
+header a {
+    @apply underline hover:bg-blue-700 hover:py-2;
+}
+
 a {
-    @apply underline;
+    @apply underline hover:bg-blue-100;
 }
